@@ -131,42 +131,82 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="relative max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-              <div className="md:col-start-2 flex justify-center mb-8">
-                <Card className="border-2 border-accent shadow-lg hover:shadow-xl transition-all duration-300 w-full max-w-sm">
-                  <CardHeader className="text-center pb-4">
-                    <div className="mx-auto mb-3 w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center">
-                      <Icon name="TrendingUp" size={32} className="text-accent" />
+          <div className="relative max-w-6xl mx-auto px-4">
+            <div className="relative">
+              <div className="flex justify-center mb-16">
+                <Card className="border-2 border-accent shadow-2xl hover:shadow-3xl transition-all duration-300 w-full max-w-md z-10 relative">
+                  <CardHeader className="text-center pb-6">
+                    <div className="mx-auto mb-4 w-20 h-20 rounded-full bg-accent/20 flex items-center justify-center">
+                      <Icon name="TrendingUp" size={40} className="text-accent" />
                     </div>
-                    <CardTitle className="text-2xl">Банковский клиринг</CardTitle>
-                    <CardDescription>Центральное понятие</CardDescription>
+                    <CardTitle className="text-3xl">Банковский клиринг</CardTitle>
+                    <CardDescription className="text-base mt-2">Центральное понятие</CardDescription>
                   </CardHeader>
                 </Card>
               </div>
 
-              {Object.values(clearingTypes).map((type, index) => (
-                <Card
-                  key={type.id}
-                  className={`cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
-                    selectedType === type.id ? 'ring-2 ring-accent shadow-xl' : ''
-                  }`}
-                  onClick={() => setSelectedType(selectedType === type.id ? null : type.id)}
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <CardHeader>
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                        <Icon name={type.icon} size={24} className="text-primary" />
+              <svg className="absolute top-0 left-0 w-full h-full pointer-events-none hidden md:block" style={{ zIndex: 0 }}>
+                <defs>
+                  <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="currentColor" className="text-accent/40" />
+                  </marker>
+                </defs>
+                <line x1="50%" y1="140" x2="16%" y2="280" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrowhead)" className="text-accent/40" strokeDasharray="5,5" />
+                <line x1="50%" y1="140" x2="50%" y2="280" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrowhead)" className="text-accent/40" strokeDasharray="5,5" />
+                <line x1="50%" y1="140" x2="84%" y2="280" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrowhead)" className="text-accent/40" strokeDasharray="5,5" />
+                <line x1="50%" y1="140" x2="25%" y2="520" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrowhead)" className="text-accent/40" strokeDasharray="5,5" />
+                <line x1="50%" y1="140" x2="75%" y2="520" stroke="currentColor" strokeWidth="2" markerEnd="url(#arrowhead)" className="text-accent/40" strokeDasharray="5,5" />
+              </svg>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                {Object.values(clearingTypes).slice(0, 3).map((type, index) => (
+                  <Card
+                    key={type.id}
+                    className={`cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2 z-10 relative ${
+                      selectedType === type.id ? 'ring-2 ring-accent shadow-2xl' : ''
+                    }`}
+                    onClick={() => setSelectedType(selectedType === type.id ? null : type.id)}
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <CardHeader>
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
+                          <Icon name={type.icon} size={28} className="text-primary" />
+                        </div>
+                        <CardTitle className="text-xl flex-1">{type.title}</CardTitle>
                       </div>
-                      <CardTitle className="text-xl flex-1">{type.title}</CardTitle>
-                    </div>
-                    <CardDescription className="text-sm leading-relaxed">
-                      {type.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              ))}
+                      <CardDescription className="text-sm leading-relaxed mt-2">
+                        {type.description}
+                      </CardDescription>
+                    </CardHeader>
+                  </Card>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+                {Object.values(clearingTypes).slice(3, 5).map((type, index) => (
+                  <Card
+                    key={type.id}
+                    className={`cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2 z-10 relative ${
+                      selectedType === type.id ? 'ring-2 ring-accent shadow-2xl' : ''
+                    }`}
+                    onClick={() => setSelectedType(selectedType === type.id ? null : type.id)}
+                    style={{ animationDelay: `${(index + 3) * 0.1}s` }}
+                  >
+                    <CardHeader>
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
+                          <Icon name={type.icon} size={28} className="text-primary" />
+                        </div>
+                        <CardTitle className="text-xl flex-1">{type.title}</CardTitle>
+                      </div>
+                      <CardDescription className="text-sm leading-relaxed mt-2">
+                        {type.description}
+                      </CardDescription>
+                    </CardHeader>
+                  </Card>
+                ))}
+              </div>
             </div>
           </div>
         </section>
